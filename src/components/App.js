@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./Header";
+import LocationButton from "./LocationButton";
 import ForecastItem from "./ForecastItem";
 import days from "../utilities/getDays";
 
@@ -18,14 +19,20 @@ const App = () => {
   // Make a request to the API whenever the location is updated.
   useEffect(() => {}, [location]);
 
+  const getLocation = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const coordinates = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      };
+      setLocation(coordinates);
+    });
+  };
+
   return (
     <div>
       <Header />
-      <div className="forecast-container">
-        {days.map((day, index) => {
-          return <ForecastItem key={index} day={day} />;
-        })}
-      </div>
+      <LocationButton getLocation={getLocation} />
     </div>
   );
 };
