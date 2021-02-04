@@ -1,18 +1,15 @@
-# Title
+# React Weather App
 
 ## Synopsis
 
-## Installation
-
-## Usage
-
-## Motivation
-
+Shows the weather forecast for the next five days. Built with React, OpenWeather, and Netlify Functions
 
 ## Contributors
+
 **Dominic Brant**.
 
 [Follow me on Twitter](https://twitter.com/dombrant). If you have any thoughts/suggestions/problems, feel free to open an issue or Tweet me.
 
 ## License
+
 MIT© [Dominic Brant](https://dombrant.com)
