@@ -6,20 +6,23 @@ import days from "../utilities/getDays";
 
 const App = () => {
   const [location, setLocation] = useState([]);
-  // Set forecast to five "Loadings" to start
+  // Set forecast to tell the user to allow location access to start
   // It will later change to forecast for the next five days
   const [forecast, setForecast] = useState([
-    "Loading",
-    "Loading",
-    "Loading",
-    "Loading",
-    "Loading",
+    "Click the button above to display the forecast",
+    "Click the button above to display the forecast",
+    "Click the button above to display the forecast",
+    "Click the button above to display the forecast",
+    "Click the button above to display the forecast",
   ]);
 
   // Make a request to the API whenever the location is updated.
   useEffect(() => {}, [location]);
 
   const getLocation = () => {
+    // Showing "loading" while the forecast is being requested
+    setForecast(["Loading", "Loading", "Loading", "Loading", "Loading"]);
+
     navigator.geolocation.getCurrentPosition((position) => {
       const coordinates = {
         latitude: position.coords.latitude,
