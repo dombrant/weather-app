@@ -1,7 +1,6 @@
+import React from "react";
 import ForecastItem from "./ForecastItem";
 import days from "../utilities/getDays";
-
-import React from "react";
 
 const FiveDayForecast = () => {
   return (
