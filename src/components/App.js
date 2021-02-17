@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import LocationButton from "./LocationButton";
-import ForecastItem from "./ForecastItem";
-import days from "../utilities/getDays";
+import FiveDayForecast from "./FiveDayForecast";
 
 const App = () => {
   const [location, setLocation] = useState([]);
@@ -36,6 +35,7 @@ const App = () => {
     <div>
       <Header />
       <LocationButton getLocation={getLocation} />
+      <FiveDayForecast />
     </div>
   );
 };

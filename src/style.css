@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   /* fallback for older browsers */
   background: #22c1c3;
   background: linear-gradient(to right, #fdbb2d, #22c1c3);
@@ -41,5 +41,15 @@ button {
   margin-right: 10px;
   width: 10vw;
   min-height: 25vh;
+  border: solid black;
+}
+
+.five-day-forecast {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.forecast-item {
   border: solid black;
 }
