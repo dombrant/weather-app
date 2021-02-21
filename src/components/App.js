@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { Router, Link } from "@reach/router";
 import Header from "./Header";
-import LocationButton from "./LocationButton";
+import ForecastButton from "./ForecastButton";
 import TodaysForecast from "./TodaysForecast";
 import FiveDayForecast from "./FiveDayForecast";
 
@@ -35,7 +36,8 @@ const App = () => {
   return (
     <div>
       <Header />
-      <LocationButton getLocation={getLocation} />
+      <ForecastButton getLocation={getLocation} text={"today"} />
+      <ForecastButton getLocation={getLocation} text={"the next five days"} />
       <TodaysForecast />
       <FiveDayForecast />
     </div>
