@@ -9,7 +9,7 @@ const Header = () => {
           <path d="M52 36a13 13 0 00-25 4.1h-1a8 8 0 100 16h26a10 10 0 000-20z" />
         </g>
       </svg>
-      <h1> Five Day Weather Forecast </h1>
+      <h1> Weather Forecast </h1>
     </div>
   );
 };
