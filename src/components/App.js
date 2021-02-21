@@ -36,10 +36,21 @@ const App = () => {
   return (
     <div>
       <Header />
-      <ForecastButton getLocation={getLocation} text={"today"} />
-      <ForecastButton getLocation={getLocation} text={"the next five days"} />
-      <TodaysForecast />
-      <FiveDayForecast />
+      <div className="button-container">
+        <Link to="/">
+          <ForecastButton getLocation={getLocation} text={"today"} />
+        </Link>
+        <Link to="fivedayforecast">
+          <ForecastButton
+            getLocation={getLocation}
+            text={"the next five days"}
+          />
+        </Link>
+      </div>
+      <Router>
+        <TodaysForecast path="/" />
+        <FiveDayForecast path="fivedayforecast" />
+      </Router>
     </div>
   );
 };
