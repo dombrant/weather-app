@@ -31,7 +31,12 @@ const App = () => {
     });
 
     try {
-    } catch (error) {}
+      const response = await fetch("/functions/api");
+      const json = await response.json();
+      console.log(json);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

@@ -1,0 +1,5 @@
+[build]
+  functions = "functions"
+[dev]
+  framework = "parcel"
+  command = "yarn start:frontend"
