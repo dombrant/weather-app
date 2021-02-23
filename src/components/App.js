@@ -17,18 +17,18 @@ const App = () => {
     "Click the button above to display the forecast",
   ]);
 
-  // Make a request to the API whenever the location is updated.
-  useEffect(() => {}, [location]);
-
-  const getLocation = () => {
+  const weatherRequest = () => {
     // Showing "loading" while the forecast is being requested
     setForecast(["Loading", "Loading", "Loading", "Loading", "Loading"]);
 
+    const coordinates = {
+      latitude: null,
+      longitude: null,
+    };
+
     navigator.geolocation.getCurrentPosition((position) => {
-      const coordinates = {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      };
+      coordinates.latitude = position.coords.latitude;
+      coordinates.longitude = position.coords.longitude;
       setLocation(coordinates);
     });
   };
@@ -38,11 +38,11 @@ const App = () => {
       <Header />
       <div className="button-container">
         <Link to="/">
-          <ForecastButton getLocation={getLocation} text={"today"} />
+          <ForecastButton weatherRequest={weatherRequest} text={"today"} />
         </Link>
         <Link to="fivedayforecast">
           <ForecastButton
-            getLocation={getLocation}
+            weatherRequest={weatherRequest}
             text={"the next five days"}
           />
         </Link>

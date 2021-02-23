@@ -1,8 +1,8 @@
 import React from "react";
 
-const ForecastButton = ({ getLocation, text }) => {
+const ForecastButton = ({ weatherRequest, text }) => {
   return (
-    <button onClick={() => getLocation()}>
+    <button onClick={() => weatherRequest()}>
       <p> Get the forecast for {text} </p>
     </button>
   );
