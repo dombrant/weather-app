@@ -6,18 +6,17 @@ import TodaysForecast from "./TodaysForecast";
 import FiveDayForecast from "./FiveDayForecast";
 
 const App = () => {
-  const [location, setLocation] = useState([]);
   // Set forecast to tell the user to allow location access to start
   // It will later change to forecast for the next five days
   const [forecast, setForecast] = useState([
-    "Click the button above to display the forecast",
-    "Click the button above to display the forecast",
-    "Click the button above to display the forecast",
-    "Click the button above to display the forecast",
-    "Click the button above to display the forecast",
+    "Click one of the buttons above to display the forecast",
+    "Click one of the buttons above to display the forecast",
+    "Click one of the buttons above to display the forecast",
+    "Click one of the buttons above to display the forecast",
+    "Click one of the buttons above to display the forecast",
   ]);
 
-  const weatherRequest = () => {
+  const weatherRequest = async () => {
     // Showing "loading" while the forecast is being requested
     setForecast(["Loading", "Loading", "Loading", "Loading", "Loading"]);
 
@@ -29,8 +28,10 @@ const App = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       coordinates.latitude = position.coords.latitude;
       coordinates.longitude = position.coords.longitude;
-      setLocation(coordinates);
     });
+
+    try {
+    } catch (error) {}
   };
 
   return (
@@ -48,8 +49,8 @@ const App = () => {
         </Link>
       </div>
       <Router>
-        <TodaysForecast path="/" />
-        <FiveDayForecast path="fivedayforecast" />
+        <TodaysForecast path="/" forecast={forecast} />
+        <FiveDayForecast path="fivedayforecast" forecast={forecast} />
       </Router>
     </div>
   );
