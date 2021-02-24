@@ -3,6 +3,6 @@ import fetch from "node-fetch";
 exports.handler = async (event, context) => {
   return {
     statusCode: 200,
-    body: "Hello world!",
+    body: JSON.stringify({ message: "Hello world!" }),
   };
 };

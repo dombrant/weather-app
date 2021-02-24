@@ -31,7 +31,7 @@ const App = () => {
     });
 
     try {
-      const response = await fetch("/functions/api");
+      const response = await fetch("/api");
       const json = await response.json();
       console.log(json);
     } catch (error) {
