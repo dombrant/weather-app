@@ -16,27 +16,27 @@ const App = () => {
     "Click one of the buttons above to display the forecast",
   ]);
 
-  const weatherRequest = async () => {
+  const weatherRequest = () => {
     // Showing "loading" while the forecast is being requested
     setForecast(["Loading", "Loading", "Loading", "Loading", "Loading"]);
 
-    const coordinates = {
-      latitude: null,
-      longitude: null,
-    };
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const coordinates = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      };
 
-    navigator.geolocation.getCurrentPosition((position) => {
-      coordinates.latitude = position.coords.latitude;
-      coordinates.longitude = position.coords.longitude;
+      try {
+        const response = await fetch("/api", {
+          method: "POST",
+          body: JSON.stringify(coordinates),
+        });
+        const json = await response.json();
+        console.log(json);
+      } catch (error) {
+        console.log(error);
+      }
     });
-
-    try {
-      const response = await fetch("/api");
-      const json = await response.json();
-      console.log(json);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
