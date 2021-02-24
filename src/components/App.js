@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Router, Link } from "@reach/router";
 import Header from "./Header";
 import ForecastButton from "./ForecastButton";
 import TodaysForecast from "./TodaysForecast";
 import FiveDayForecast from "./FiveDayForecast";
+import getPosition from "../utilities/getPosition";
 
 const App = () => {
   // Set forecast to tell the user to allow location access to start
@@ -16,32 +17,38 @@ const App = () => {
     "Click one of the buttons above to display the forecast",
   ]);
 
-  const weatherRequest = () => {
+  const weatherRequest = async () => {
     // Showing "loading" while the forecast is being requested
     setForecast(["Loading", "Loading", "Loading", "Loading", "Loading"]);
 
-    navigator.geolocation.getCurrentPosition(async (position) => {
-      const coordinates = {
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      };
+    const position = await getPosition().catch((error) =>
+      setForecast([
+        "Error requesting location accesss, please try again.",
+        "Error requesting location accesss, please try again.",
+        "Error requesting location accesss, please try again.",
+        "Error requesting location accesss, please try again.",
+        "Error requesting location accesss, please try again.",
+      ])
+    );
 
-      try {
-        const response = await fetch("/api", {
-          method: "POST",
-          body: JSON.stringify(coordinates),
-        });
-        const data = await response.json();
-      } catch (error) {
-        setForecast([
-          "Error making request, please double check location access is allowed and try again.",
-          "Error making request, please double check location access is allowed and try again.",
-          "Error making request, please double check location access is allowed and try again.",
-          "Error making request, please double check location access is allowed and try again.",
-          "Error making request, please double check location access is allowed and try again.",
-        ]);
-      }
-    });
+    try {
+      const response = await fetch("/api", {
+        method: "POST",
+        body: JSON.stringify({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        }),
+      });
+      const data = await response.json();
+    } catch (error) {
+      setForecast([
+        "Error making request, please double check location access is allowed and try again.",
+        "Error making request, please double check location access is allowed and try again.",
+        "Error making request, please double check location access is allowed and try again.",
+        "Error making request, please double check location access is allowed and try again.",
+        "Error making request, please double check location access is allowed and try again.",
+      ]);
+    }
   };
 
   return (
