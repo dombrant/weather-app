@@ -31,10 +31,15 @@ const App = () => {
           method: "POST",
           body: JSON.stringify(coordinates),
         });
-        const json = await response.json();
-        console.log(json);
+        const data = await response.json();
       } catch (error) {
-        console.log(error);
+        setForecast([
+          "Error making request, please double check location access is allowed and try again.",
+          "Error making request, please double check location access is allowed and try again.",
+          "Error making request, please double check location access is allowed and try again.",
+          "Error making request, please double check location access is allowed and try again.",
+          "Error making request, please double check location access is allowed and try again.",
+        ]);
       }
     });
   };
