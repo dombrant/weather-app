@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { Router, Link } from "@reach/router";
 import Header from "./Header";
 import ForecastButton from "./ForecastButton";
@@ -17,45 +17,50 @@ const App = () => {
     "Click one of the buttons above to display the forecast",
   ]);
 
-  useEffect(() => {
-    console.log(forecast);
-  }, [forecast]);
+  // Create a ref to be used inside of weatherRequest below
+  // That way, if the user first clicks on today's forecast, then the five day forecast (or vice versa), another request does not have to be made
+  const requestMade = useRef(false);
 
   const weatherRequest = async () => {
-    // Showing "loading" while the forecast is being requested
-    setForecast(["Loading", "Loading", "Loading", "Loading", "Loading"]);
+    if (!requestMade.current) {
+      // Showing "loading" while the forecast is being requested
+      setForecast(["Loading", "Loading", "Loading", "Loading", "Loading"]);
 
-    const position = await getPosition().catch((error) =>
-      setForecast([
-        "Error requesting location accesss, please try again.",
-        "Error requesting location accesss, please try again.",
-        "Error requesting location accesss, please try again.",
-        "Error requesting location accesss, please try again.",
-        "Error requesting location accesss, please try again.",
-      ])
-    );
+      const position = await getPosition().catch((error) =>
+        setForecast([
+          "Error requesting location accesss, please try again.",
+          "Error requesting location accesss, please try again.",
+          "Error requesting location accesss, please try again.",
+          "Error requesting location accesss, please try again.",
+          "Error requesting location accesss, please try again.",
+        ])
+      );
 
-    try {
-      const response = await fetch("/api", {
-        method: "POST",
-        body: JSON.stringify({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        }),
-      });
-      const data = await response.json();
-      const fiveDayMaxMin = data.daily
-        .slice(0, 5)
-        .map((day) => ({ max: day.temp.max, min: day.temp.min }));
-      setForecast(fiveDayMaxMin);
-    } catch (error) {
-      setForecast([
-        "Error making request, please double check that location access is allowed and try again.",
-        "Error making request, please double check that location access is allowed and try again.",
-        "Error making request, please double check that location access is allowed and try again.",
-        "Error making request, please double check that location access is allowed and try again.",
-        "Error making request, please double check that location access is allowed and try again.",
-      ]);
+      try {
+        const response = await fetch("/api", {
+          method: "POST",
+          body: JSON.stringify({
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          }),
+        });
+        const data = await response.json();
+
+        const fiveDayMaxMin = data.daily
+          .slice(0, 5)
+          .map((day) => `High: ${day.temp.max}F, Low:${day.temp.min}F`);
+        setForecast(fiveDayMaxMin);
+
+        requestMade.current = true;
+      } catch (error) {
+        setForecast([
+          "Error making request, please double check that location access is allowed and try again.",
+          "Error making request, please double check that location access is allowed and try again.",
+          "Error making request, please double check that location access is allowed and try again.",
+          "Error making request, please double check that location access is allowed and try again.",
+          "Error making request, please double check that location access is allowed and try again.",
+        ]);
+      }
     }
   };
 
