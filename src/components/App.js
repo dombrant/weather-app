@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Router, Link } from "@reach/router";
 import Header from "./Header";
 import ForecastButton from "./ForecastButton";
@@ -16,6 +16,10 @@ const App = () => {
     "Click one of the buttons above to display the forecast",
     "Click one of the buttons above to display the forecast",
   ]);
+
+  useEffect(() => {
+    console.log(forecast);
+  }, [forecast]);
 
   const weatherRequest = async () => {
     // Showing "loading" while the forecast is being requested
@@ -40,13 +44,17 @@ const App = () => {
         }),
       });
       const data = await response.json();
+      const fiveDayMaxMin = data.daily
+        .slice(0, 5)
+        .map((day) => ({ max: day.temp.max, min: day.temp.min }));
+      setForecast(fiveDayMaxMin);
     } catch (error) {
       setForecast([
-        "Error making request, please double check location access is allowed and try again.",
-        "Error making request, please double check location access is allowed and try again.",
-        "Error making request, please double check location access is allowed and try again.",
-        "Error making request, please double check location access is allowed and try again.",
-        "Error making request, please double check location access is allowed and try again.",
+        "Error making request, please double check that location access is allowed and try again.",
+        "Error making request, please double check that location access is allowed and try again.",
+        "Error making request, please double check that location access is allowed and try again.",
+        "Error making request, please double check that location access is allowed and try again.",
+        "Error making request, please double check that location access is allowed and try again.",
       ]);
     }
   };
