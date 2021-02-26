@@ -2,7 +2,7 @@
 
 ## Synopsis
 
-Shows the weather forecast for the next five days. Built with React, OpenWeather, and Netlify Functions
+Shows the weather forecast for the next five days. Built with React Hooks, Reach Router, OpenWeatherMap, and Netlify Functions.
 
 ## Contributors
 
