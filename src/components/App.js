@@ -48,7 +48,12 @@ const App = () => {
 
         const fiveDayMaxMin = data.daily
           .slice(0, 5)
-          .map((day) => `High: ${day.temp.max}F, Low:${day.temp.min}F`);
+          .map(
+            (day) =>
+              `High: ${Math.round(day.temp.max)}F, Low: ${Math.round(
+                day.temp.min
+              )}F`
+          );
         setForecast(fiveDayMaxMin);
 
         requestMade.current = true;

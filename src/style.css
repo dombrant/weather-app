@@ -22,6 +22,18 @@
   stroke-width: 3px;
 }
 
+@media (max-width: 600px) {
+  .header-container > svg {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.header-container > h1 {
+  font-size: 48px;
+  text-align: center;
+}
+
 .button-container {
   display: flex;
   justify-content: center;
@@ -31,6 +43,7 @@ button {
   margin-right: 10px;
   display: flex;
   justify-content: center;
+  font-size: 14px;
   border: solid black;
 }
 
@@ -40,11 +53,24 @@ button {
   justify-content: center;
 }
 
+@media (max-width: 600px) {
+  .five-day-forecast {
+    flex-direction: column;
+  }
+}
+
 .five-day-forecast > div {
   margin-right: 10px;
 }
 
 .forecast-item {
   margin-top: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 80vw;
   border: solid black;
 }
