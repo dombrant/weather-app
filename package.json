@@ -1,7 +1,7 @@
 {
   "name": "weather-app",
   "version": "1.0.0",
-  "description": "Shows the weather forecast for the next five days. Built with React, OpenWeather, and Netlify Functions",
+  "description": "Shows the weather forecast for either today or the next five days.",
   "main": "index.js",
   "module": "functions/api.js",
   "scripts": {
